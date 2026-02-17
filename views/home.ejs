@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>URL Shortening Service</title>
+</head>
+<body>
+    <h1>Welcome to the URL Shortening Service</h1>
+    <button><a href="/Login">Login</a></button>
+    <br>
+    <br>
+    <button><a href="/analytics">Analytics</a></button>
+    <button><a href="/">Home</a></button>
+    <button><a href="/url/shorten">Shorten URL</a></button>
+     
+     <br><br>
+     <hr>
+     <br><br>
+    
+     <!-- input form -->
+     <form action="/url/shorten" method="POST">
+        <label for="user_url">Enter Long URL:</label>
+        <input type="url" id="user_url" name="user_url" placeholder="www.khud_ka_url.com" required>
+        <button type="submit">generate URL</button>
+    </form>
+
+
+    <% if (locals.shortUrl) { %>
+    <% if (locals.exist) { %>
+    <p>The URL you entered already exists.</p>    
+    <% } else { %>
+        <p>newly created</p> 
+    <% } %>
+    <p>Your shortened URL is: <a href="http://localhost:3000/url/<%= shortUrl %>">navigate to <%= shortUrl %></a></p>
+    <% } %>
+
+    <% if (locals.users) { %>
+     <table border="1">
+        <tr>
+            <th>sr no</th>
+            <th>Original URL</th>
+            <th>Short URL</th>
+            <th>Total Clicks</th>
+        </tr>
+        <% locals.users.forEach(function(user, index) { %>
+        <tr>
+            <td><%= index + 1 %></td>
+            <td><%= user.longUrl %></td>
+            <td><a href="http://localhost:3000/url/<%= user.shortUrl %>"><%= user.shortUrl %></a></td>
+            <td><%= user.totalClicks %></td>
+        </tr>
+        <% }); %>
+    <% } %>
+
+</body>
+</html>
