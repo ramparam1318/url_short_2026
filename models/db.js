@@ -74,5 +74,7 @@ const user = new mongoose.Schema(
 
 urlSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0, partialFilterExpression: { expiresAt: { $type: 'date' } } });
 
-module.exports = mongoose.model('Url', urlSchema);
-module.exports = mongoose.model('User', user);
+const Url = mongoose.model('Url', urlSchema);
+const User = mongoose.model('User', user);
+
+module.exports = { Url, User };
