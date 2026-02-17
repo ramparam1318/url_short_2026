@@ -39,7 +39,7 @@ router.post("/short", (req, res) => {
             console.error("Error saving URL:", err);
             return res.status(500).json({ error: "Internal server error" });
           }
-          // res.json({ shortUrl: savedUrl.shortUrl });
+          res.json({ shortUrl: savedUrl.shortUrl });
         });
       }
     });
