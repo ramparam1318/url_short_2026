@@ -1,5 +1,5 @@
 const generateShortCode = require("../utils/url");
-const Url = require("../models/db").Url;
+const Url = require("../models/url").Url;
 
 // async function createShortUrl(originalUrl, createdBy) {
 

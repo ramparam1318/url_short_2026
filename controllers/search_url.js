@@ -1,4 +1,4 @@
-const Url = require("../models/db").Url;
+const Url = require("../models/url").Url;
 const update_click = require("../utils/update_click");
 
 async function search_url(req, res) {

@@ -1,4 +1,4 @@
-const Url = require("../models/db").Url;
+const Url = require("../models/url").Url;
 
 async function update_click(shortCode, info) {
     try {
