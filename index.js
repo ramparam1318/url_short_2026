@@ -14,6 +14,7 @@ app.set("views", __dirname + "/views");
 
 app.use("/", home);
 app.use("/url", url);
+app.use("/user", require("./routers/user"));
 // app.use("/analytics", analytics);
 
 app.listen(port, () => {

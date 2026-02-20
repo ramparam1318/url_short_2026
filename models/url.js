@@ -49,32 +49,8 @@ const urlSchema = new mongoose.Schema(
   }
 );
 
-const user = new mongoose.Schema(
-    {
-        username: {
-            type: String,
-            required: true,
-            unique: true,
-        },
-        email: {
-            type: String,
-            required: true,
-            unique: true,
-        },
-        password: {
-            type: String,
-            required: true,
-        },
-    },
-    {
-        timestamps: true,
-        versionKey: false,
-    }
-);
-
 urlSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0, partialFilterExpression: { expiresAt: { $type: 'date' } } });
 
 const Url = mongoose.model('Url', urlSchema);
-const User = mongoose.model('User', user);
 
-module.exports = { Url, User };
+module.exports = { Url };
