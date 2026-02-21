@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const port = require("./config/env").PORT;
-const { home, url, analytics } = require("./routers/index");
+const { home, url, analytics, user } = require("./routers/index");
 const db_connect = require("./config/db");
 
 db_connect.connectDatabase();
@@ -14,7 +14,7 @@ app.set("views", __dirname + "/views");
 
 app.use("/", home);
 app.use("/url", url);
-app.use("/user", require("./routers/user"));
+app.use("/user", user);
 // app.use("/analytics", analytics);
 
 app.listen(port, () => {

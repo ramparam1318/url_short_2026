@@ -1,4 +1,6 @@
 const User = require("../models/users.js").User;
+const { setUserSession, getUserSession } = require("../service/auth.js");
+const { generateSessionId } = require("../utils/generate_sessionid.js");
 
 async function handleUserSignup(req, res) {
     const { username, email, password } = req.body;
@@ -24,14 +26,23 @@ async function handleUserSignin(req, res) {
     const { username, email, password } = req.body;
     try {
         const user = await User.findOne({ email: email });
-
         if (!user) {
             return res.status(400).json({ error: 'User not found' });
         }
         if (user.password !== password) {
             return res.status(400).json({ error: 'Invalid password' });
         }
-        res.status(200).json({ message: 'User signed in successfully', email });
+        const check_existing_sessionid = getUserSession(user.username);
+        if (check_existing_sessionid) {
+            res.cookie('sessionId', check_existing_sessionid, { httpOnly: true });
+            return res.status(200).json({ message: 'User signed in successfully', email, sessionId: check_existing_sessionid });
+        }
+        else {
+            const sessionId = generateSessionId();
+            setUserSession(user.username, sessionId);
+            res.cookie('sessionId', sessionId, { httpOnly: true });
+            res.status(200).json({ message: 'User signed in successfully', email, sessionId });
+        }
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

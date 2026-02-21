@@ -38,10 +38,15 @@ const urlSchema = new mongoose.Schema(
       type: Date,
       default: null,
     },
-    createdby: {
-      type: String,
-      default: 'anonymous',
-    }
+    // createdby: {
+    //   type: String,
+    //   default: 'anonymous',
+    // }
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      default: null,
+    },
   },
   {
     timestamps: true,
